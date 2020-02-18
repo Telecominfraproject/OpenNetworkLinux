@@ -91,7 +91,7 @@ if swi is None:
     swi = OnlSwitchImage(ops.swi, 'r')
 
 if ops.contents:
-    print " ".join(swi.get_contents())
+    print((" ".join(swi.get_contents())))
 
 if ops.platforms:
-    print " ".join(swi.get_platforms())
+    print((" ".join(swi.get_platforms())))

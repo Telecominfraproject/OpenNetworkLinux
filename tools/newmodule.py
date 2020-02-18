@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 ################################################################
 #
 #        Copyright 2013, Big Switch Networks, Inc.

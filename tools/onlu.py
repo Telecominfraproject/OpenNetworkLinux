@@ -1,9 +1,11 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 ############################################################
 #
 # Common utilities for the ONL python tools.
 #
 ############################################################
+
+
 import logging
 import subprocess
 from collections import Iterable
@@ -13,6 +15,7 @@ import fcntl
 import glob
 from string import Template
 import time
+from builtins import str
 
 logger = None
 
@@ -91,7 +94,7 @@ class Profiler(object):
 #
 def execute(args, sudo=False, chroot=None, ex=None, env=False):
 
-    if isinstance(args, basestring):
+    if isinstance(args, str):
         # Must be executed through the shell
         shell = True
     else:
@@ -102,13 +105,13 @@ def execute(args, sudo=False, chroot=None, ex=None, env=False):
         sudo = True
 
     if chroot:
-        if isinstance(args, basestring):
+        if isinstance(args, str):
             args = "chroot %s %s" % (chroot, args)
         elif type(args) in (list,tuple):
             args = ['chroot', chroot] + list(args)
 
     if sudo:
-        if isinstance(args, basestring):
+        if isinstance(args, str):
             if env:
                 args = "sudo -E %s" % (args)
             else:
@@ -127,7 +130,7 @@ def execute(args, sudo=False, chroot=None, ex=None, env=False):
         try:
             subprocess.check_call(args, shell=shell)
             rv = 0
-        except subprocess.CalledProcessError, e:
+        except subprocess.CalledProcessError as e:
             if ex:
                 raise ex
             rv = e.returncode
@@ -138,7 +141,7 @@ def execute(args, sudo=False, chroot=None, ex=None, env=False):
 # Flatten lists if string lists
 def sflatten(coll):
     for i in coll:
-            if isinstance(i, Iterable) and not isinstance(i, basestring):
+            if isinstance(i, Iterable) and not isinstance(i, str):
                 for subc in sflatten(i):
                     if subc:
                         yield subc
@@ -167,10 +170,10 @@ def userdel(username):
     # Can't use the userdel command because of potential uid 0 in-user problems while running ourselves
     for line in fileinput.input('/etc/passwd', inplace=True):
         if not line.startswith('%s:' % username):
-            print line,
+            print(line, end=' ')
     for line in fileinput.input('/etc/shadow', inplace=True):
         if not line.startswith('%s:' % username):
-            print line,
+            print(line, end='')
 
 ############################################################
 #
@@ -246,12 +249,12 @@ def filepath(absdir, relpath, eklass, required=True):
 def validate_src_dst_file_tuples(absdir, data, dstsubs, eklass, required=True):
     files = []
     if type(data) is dict:
-        for (s,d) in data.iteritems():
+        for (s,d) in list(data.items()):
             files.append((s,d))
     elif type(data) is list:
         for e in data:
             if type(e) is dict:
-                for (s,d) in e.iteritems():
+                for (s,d) in list(e.items()):
                     files.append((s,d))
             elif type(e) in [ list, tuple ]:
                 if len(e) != 2:

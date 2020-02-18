@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 
 """onlplatform.py
 
@@ -75,11 +75,11 @@ def extractVendor(platform, arch):
     return "\n".join(l)
 
 if ops.key in ('kernel', 'initrd', 'dtb', 'itb',):
-    print extractKey(ops.platform, ops.arch, ops.key)
+    print((extractKey(ops.platform, ops.arch, ops.key)))
     sys.exit(0)
 
 if ops.key == 'vendor':
-    print extractVendor(ops.platform, ops.arch)
+    print((extractVendor(ops.platform, ops.arch)))
     sys.exit(0)
 
 raise SystemExit("invalid key %s" % ops.key)

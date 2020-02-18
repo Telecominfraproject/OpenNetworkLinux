@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 ############################################################
 #
 # This script expects a yaml file containing the list
@@ -9,6 +9,7 @@
 # packages necessary to support the given list
 # of platforms.
 #
+
 import onlyaml
 import argparse
 import onlu
@@ -41,10 +42,4 @@ if not ops.no_builtins:
 
 for p in platforms:
     for pattern in PATTERNS:
-        print "- ", pattern % dict(platform=p)
-
-
-
-
-
-
+        print(("- {}".format(pattern % dict(platform=p))))

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 ############################################################
 #
 # This script generates a repository skeleton for a new
@@ -57,7 +57,7 @@ class NOSFile(object):
             'bootconfig' : 'boot-config',
         }
 
-        clsname = map(lambda t: replacements.get(t, t), clsname)
+        clsname = [replacements.get(t, t) for t in clsname]
         return os.path.join(*clsname)
 
 
@@ -88,7 +88,7 @@ class NOSFile(object):
 
     def write(self, stdout=False, overwrite=False, dry=False):
         if stdout:
-            print self.etemplate
+            print((self.etemplate))
         else:
             abspath = os.path.join(self.root, self.epath)
             if not os.path.isdir(os.path.dirname(abspath)):
@@ -1168,6 +1168,6 @@ if __name__ == '__main__':
 
     for obj in OBJECTS:
         if ops.list_files:
-            print "%-60s" % (obj.epath)
+            print(("%-60s" % (obj.epath)))
         if ops.write_files:
             obj.write(overwrite=ops.overwrite, dry=ops.dry)

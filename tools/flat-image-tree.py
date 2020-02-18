@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 ############################################################
 #
 # Flat Image Tree Generator
@@ -212,7 +212,7 @@ class FlatImageTree(object):
         self.add_dict(name, d)
 
     def add_platform_package(self, package):
-        print package
+        print(package)
         platform = package.replace(":%s" % ops.arch, "").replace("onl-platform-config-", "")
 
         vpkg = "onl-vendor-config-onl:all"
@@ -264,22 +264,22 @@ class FlatImageTree(object):
         f.write("""    images {\n\n""")
 
         f.write("""        /* Kernel Images */\n""")
-        for k in kdict.values():
+        for k in list(kdict.values()):
             k.write(f)
 
         f.write("""\n""")
         f.write("""        /* DTB Images */\n""")
-        for d in ddict.values():
+        for d in list(ddict.values()):
             d.write(f)
 
         f.write("""\n""")
         f.write("""        /* Initrd Images */\n""")
-        for i in idict.values():
+        for i in list(idict.values()):
             i.write(f)
 
         f.write("""    };\n""")
         f.write("""    configurations {\n""")
-        for (name, (kernel, dtb, initrd)) in self.configurations.iteritems():
+        for (name, (kernel, dtb, initrd)) in list(self.configurations.items()):
             f.write("""        %s {\n""" % name)
             f.write("""            description = "%s";\n""" % name)
             f.write("""            kernel = "%s";\n""" % (KernelImage(kernel, ops.arch).name))

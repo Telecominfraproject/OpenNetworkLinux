@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 ############################################################
 #
 # This script provides the file naming scheme for
@@ -19,8 +19,8 @@ versions['UARCH'] = manifest['arch'].upper().replace("POWERPC","PPC")
 versions['OS_RELEASE_VERSION_ID'] = manifest['os-release']['VERSION_ID']
 
 if ops.type == 'swi':
-    print "%(FNAME_PRODUCT_VERSION)s_ONL-OS%(OS_RELEASE_VERSION_ID)s_%(FNAME_BUILD_ID)s_%(UARCH)s.swi" % versions
+    print(("%(FNAME_PRODUCT_VERSION)s_ONL-OS%(OS_RELEASE_VERSION_ID)s_%(FNAME_BUILD_ID)s_%(UARCH)s.swi" % versions))
 elif ops.type == 'installer':
-    print "%(FNAME_PRODUCT_VERSION)s_ONL-OS%(OS_RELEASE_VERSION_ID)s_%(FNAME_BUILD_ID)s_%(UARCH)s_INSTALLER" % versions
+    print(("%(FNAME_PRODUCT_VERSION)s_ONL-OS%(OS_RELEASE_VERSION_ID)s_%(FNAME_BUILD_ID)s_%(UARCH)s_INSTALLER" % versions))
 else:
     raise ValueError("Unknown type '%s'" % ops.type)

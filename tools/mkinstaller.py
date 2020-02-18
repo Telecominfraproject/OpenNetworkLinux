@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 ############################################################
 #
 # Build an ONL Installer
@@ -142,7 +142,7 @@ class InstallerShar(object):
             shutil.copy(f, self.work_dir)
 
         for d in self.dirs:
-            print "Copying %s -> %s..." % (d, self.work_dir)
+            print(("Copying %s -> %s..." % (d, self.work_dir)))
             subprocess.check_call(["cp", "-R", d, self.work_dir])
 
         with open(os.path.join(self.work_dir, 'installer.sh'), "w") as f:
